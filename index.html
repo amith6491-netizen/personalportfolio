@@ -387,7 +387,7 @@
 }
 
 .tech-item {
-  display:table-row;
+  display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -409,86 +409,145 @@
 }
 
     /* ── PROJECTS ── */
-    #projects { background: var(--bg); }
-    .projects-header {
-      display: flex; align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
-      cursor: default;
-      position: relative;
-    }
-    .project-card:hover {
-      border-color: rgba(232,255,71,0.3);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .project-thumb {
-      height: 180px;
-      background: var(--surface);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-thumb::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, var(--card));
-    }
-    .thumb-glow {
-      position: absolute;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.2;
-    }
-    .project-body { padding: 1.5rem; }
-    .project-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.5rem;
-    }
-    .project-name {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-    .project-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--border);
-      display: flex; gap: 0.5rem; flex-wrap: wrap;
-    }
-    .tech-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      padding: 0.2rem 0.6rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--muted);
-    }
+    /* ===== Projects Section ===== */
+.projects-section {
+  padding: 80px 20px;
+  background: #0f0f0f;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===== Project Card ===== */
+.project-card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Banner ===== */
+.card-banner {
+  background-color: var(--card);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+/* ===== Card Body ===== */
+.card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.card-title {
+  font-family: 'Courier New', monospace;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #ffffff;
+  margin: 0;
+}
+
+.card-desc {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  color: #a0a0a0;
+  line-height: 1.8;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ===== Tech Tags ===== */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  color: #cccccc;
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+.demo-btn {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--accent);
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #9333ea;
+  transition: background 0.2s ease;
+}
+
+.demo-btn:hover {
+  background: var(--muted);
+}
+
+/* ===== GitHub Button ===== */
+.github-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: auto;
+  border: 1px solid #3a3a3a;
+  transition: background 0.2s ease;
+}
+
+.github-btn:hover {
+  background: #333333;
+}
+    /* No featured span - consistent 2-column layout
     .card-featured {
-      grid-column: span 2;
-    }
-    .card-featured .project-thumb { height: 240px; }
+      grid-column: span 1;
+    } */
 
     /* ── INTERNSHIP ── */
     #internship { background: var(--surface); }
@@ -695,8 +754,10 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .project-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .card-body{ padding: 16px; }
+      .card-desc{ font-size: 0.78rem; }
       .card-featured { grid-column: span 1; }
       .card-featured .project-thumb { height: 180px; }
       .tasks-grid { grid-template-columns: repeat(2, 1fr); }
@@ -852,7 +913,7 @@
   </section>
 
   <section class="tech-stack">
-  <h2>Technologies I Work With</h2>
+  <h2>Technologies I Work With</h2><br><br>
   <div class="tech-grid">
     <!-- HTML -->
     <div class="tech-item">
@@ -903,89 +964,156 @@
 </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-inner">
-      <div class="projects-header">
-        <div>
-          
-          <h2 class="section-title">Featured Projects</h2>
-        </div>
-        <a href="https://github.com/amith6491-netizen" target="_blank" class="btn-ghost">View All on GitHub ↗</a>
+  <section id="projects" class="projects-section">
+  <div class="section-label"> Projects</div>
+  <br><br>
+        <!-- Weather App -->
+    <div class="projects-grid">
+    <div class="project-card">
+      <div class="card-banner" style="--banner-color: #7c3aed;">
+        <!-- Replace with your project icon/image -->
+        <img src="weather.png" alt="Project Icon" class="banner-icon" />
       </div>
-
-      <div class="project-grid">
-
-        <!-- Featured: Weather App -->
-        <div class="project-card card-featured reveal">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);">
-            <div class="thumb-glow" style="background:#47d9ff; left:30%; top:10%;"></div>
-            <span style="font-size:4rem; position:relative; z-index:1;">🌦️</span>
-          </div>
-          <div class="project-body">
-            <div class="project-tag">Web Application</div>
-            <div class="project-name">Weather App</div>
-            <div class="project-desc">A dynamic weather application that fetches real-time data and displays forecasts, temperature, humidity, and conditions with a clean visual interface.</div>
-          </div>
-          <div class="project-footer">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">Weather API</span>
-          </div>
+      <div class="card-body">
+        <h3 class="card-title">Weather App</h3>
+        <p class="card-desc">
+          A Weather app is designed to provide real-time updates about current conditions such as temperature, humidity, wind speed, and forecasts for upcoming days.
+           Many also include radar maps, severe weather alerts, and location-based services, making them essential for planning daily activities or travel.</p>
+        <div class="card-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+          <span class="tag">Android</span>
         </div>
+        <a href="https://github.com/amith6491-netizen" target="_blank" class="github-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
+            0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695
+            -.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99
+            .105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225
+            -.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405
+            c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225
+            0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3
+            0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="weatherapp.html" target="_blank" class="demo-btn">
+   Live Demo
+</a>
+      </div>
+    </div>
 
         <!-- Tic Tac Toe -->
-        <div class="project-card reveal reveal-delay-1">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #1a0a2e 0%, #0d0d1a 100%);">
-            <div class="thumb-glow" style="background:#e8ff47; left:50%; top:20%;"></div>
-            <span style="font-size:3.5rem; position:relative; z-index:1;">❌⭕</span>
-          </div>
-          <div class="project-body">
-            <div class="project-tag">Interactive Game</div>
-            <div class="project-name">Tic-Tac-Toe</div>
-            <div class="project-desc">A fully functional browser-based Tic-Tac-Toe game with two-player mode and win detection logic.</div>
-          </div>
-          <div class="project-footer">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JavaScript</span>
-          </div>
+          <div class="project-card">
+      <div class="card-banner" style="--banner-color: #7c3aed;">
+        <!-- Replace with your project icon/image -->
+        <img src="tictactoe.png" alt="Project Icon" class="banner-icon" />
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Tic-Tac-Toe App</h3>
+        <p class="card-desc">
+          Tic-Tac-Toe is a simple two-player strategy game played on a 3×3 grid, where the goal is to align three identical symbols (X or O) in a row, column, or diagonal.
+           It’s quick, easy to learn, and always ends in either a win or a draw if both players play optimally.</p>
+        <div class="card-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+          <span class="tag">Android</span>
+          <span class="tag">Android</span>
         </div>
-
+        <a href="https://github.com/amith6491-netizen" target="_blank" class="github-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
+            0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695
+            -.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99
+            .105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225
+            -.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405
+            c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225
+            0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3
+            0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="tic-tac-toe.html" target="_blank" class="demo-btn">
+   Live Demo
+</a>
+      </div>
+      </div>
         <!-- Calculator -->
-        <div class="project-card reveal">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #0a1a0d 0%, #0d0d1a 100%);">
-            <div class="thumb-glow" style="background:#47ff8a; left:40%; top:20%;"></div>
-            <span style="font-size:3.5rem; position:relative; z-index:1;">🧮</span>
-          </div>
-          <div class="project-body">
-            <div class="project-tag">Web App</div>
-            <div class="project-name">Calculator</div>
-            <div class="project-desc">A responsive and interactive calculator app supporting arithmetic operations with a clean, minimal UI.</div>
-          </div>
-          <div class="project-footer">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JavaScript</span>
-          </div>
+
+    <div class="project-card">
+      <div class="card-banner" style="--banner-color: #7c3aed;">
+        <!-- Replace with your project icon/image -->
+        <img src="calculator.png" alt="Project Icon" class="banner-icon" />
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Calculator App</h3>
+        <p class="card-desc">
+          A Calculator app is a digital tool that performs mathematical operations ranging from basic arithmetic to advanced scientific functions like trigonometry and logarithms.
+           It helps users solve problems quickly and accurately, whether for schoolwork, budgeting, or professional tasks, and often includes extra features like unit conversions or financial calculations.</p>
+        <div class="card-tags">
+           <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+          <span class="tag">Android</span>
         </div>
+        <a href="https://github.com/amith6491-netizen" target="_blank" class="github-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
+            0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695
+            -.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99
+            .105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225
+            -.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405
+            c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225
+            0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3
+            0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="calculator.html" target="_blank" class="demo-btn">
+   Live Demo
+</a>
+      </div>
+    </div>
+
 
         <!-- Landing Page -->
-        <div class="project-card reveal reveal-delay-1">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #1a1500 0%, #0d0d1a 100%);">
-            <div class="thumb-glow" style="background:#ffd147; left:30%; top:10%;"></div>
-            <span style="font-size:3.5rem; position:relative; z-index:1;">🌐</span>
-          </div>
-          <div class="project-body">
-            <div class="project-tag">Landing Page</div>
-            <div class="project-name">Responsive Landing Page</div>
-            <div class="project-desc">A visually appealing, fully responsive landing page with smooth scroll animations and modern layout techniques.</div>
-          </div>
-          <div class="project-footer">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-          </div>
+    <div class="project-card">
+      <div class="card-banner" style="--banner-color: #7c3aed;">
+        <!-- Replace with your project icon/image -->
+        <img src="portfolio.png" alt="Project Icon" class="banner-icon" />
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Portfolio</h3>
+        <p class="card-desc">
+         A Portfolio app is used to track and manage investments, assets, or personal projects. It provides an overview of performance, growth, and diversification, often displaying stocks, cryptocurrencies, or mutual funds in one place. 
+         Many portfolio apps also integrate analytics, news, and alerts to help users make informed decisions about their holdings.</p>
+        <div class="card-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JAVASCRIPT</span>
+          <span class="tag">Android</span>
         </div>
+        <a href="https://github.com/amith6491-netizen" target="_blank" class="github-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
+            0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695
+            -.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99
+            .105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225
+            -.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405
+            c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225
+            0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3
+            0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="index.html" target="_blank" class="demo-btn">
+   Live Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
 
         <!-- Office Master -->
         <!--<div class="project-card reveal reveal-delay-2">
@@ -1002,7 +1130,11 @@
             <span class="tech-tag">HTML</span>
             <span class="tech-tag">CSS</span>
             <span class="tech-tag">JavaScript</span>
-          </div>
+            </div>
+            <div class="projects-btn">
+             <button type="button" name="github" value="github">GitHub</button>
+             <button type="button" name="live demo" value="live demo">Live Demo</button>
+            </div>
         </div>
 
         <!-- Systemtron -->
@@ -1020,7 +1152,11 @@
             <span class="tech-tag">HTML</span>
             <span class="tech-tag">CSS</span>
             <span class="tech-tag">JavaScript</span>
-          </div>
+            </div>
+            <div class="projects-btn">
+             <button type="button" name="github" value="github">GitHub</button>
+             <button type="button" name="live demo" value="live demo">Live Demo</button>
+            </div>
         </div>
 
         <!-- HP Life -->
@@ -1038,7 +1174,11 @@
             <span class="tech-tag">HTML</span>
             <span class="tech-tag">CSS</span>
             <span class="tech-tag">JavaScript</span>
-          </div>
+            </div>
+            <div class="projects-btn">
+             <button onclick="window.open('https://github.com/amith6491-netizen')" class="project-btn">GitHub</button>
+             <button onclick="window.open('https://amith6491.github.io/')" class="project-btn">Live Demo</button>
+            </div>
         </div>
 
         <!-- Ben10x -->
@@ -1056,8 +1196,12 @@
             <span class="tech-tag">HTML</span>
             <span class="tech-tag">CSS</span>
             <span class="tech-tag">JavaScript</span>
-          </div>
-        </div>-->
+            </div>
+            <div class="projects-btn">
+             <button onclick="window.open('https://github.com/amith6491-netizen')" class="project-btn">GitHub</button>
+             <button onclick="window.open('https://amith6491.github.io/')" class="project-btn">Live Demo</button>
+            </div>
+        </div>
 
 
       </div>
@@ -1135,6 +1279,8 @@
       <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03A9.56 9.56 0 0112 6.84c.85.01 1.71.12 2.5.34 1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/>
     </svg>
     GitHub
+
+
   </a>
   <!-- LinkedIn -->
   <a href="https://www.linkedin.com/in/amith-baragi-94a340314?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-link">

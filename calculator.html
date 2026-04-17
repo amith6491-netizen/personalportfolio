@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0, 100, 150, 0.6), rgba(0, 150, 200, 0.6)), url('https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #1c1c1c;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 20px;
+      width: 380px;
+    }
+
+    .display {
+      width: 100%;
+      height: 80px;
+      background: #000;
+      color: #0f0;
+      font-size: 34px;
+      text-align: right;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      height: 65px;
+      border: none;
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+      background: #333;
+      box-shadow: 0 4px #222;
+      cursor: pointer;
+      transition: 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px #111;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+      }
+      20% {
+        opacity: 0.9;
+      }
+      50% {
+        opacity: 0.6;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+      100% {
+        transform: scale(5);
+        opacity: 0;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0);
+      }
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.7);
+      transform: scale(0);
+      animation: ripple 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    .operator {
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    }
+
+    .equal {
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      grid-column: span 2;
+      height: 75px;
+      font-size: 26px;
+    }
+
+    .clear {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .delete {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+    }
+
+    .number {
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+    }
+
+    .zero {
+      grid-column: span 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" class="display" readonly>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="delete" onclick="deleteLast()">DE</button>
+      <button class="operator" onclick="appendValue('/')">/</button>
+      <button class="operator" onclick="appendValue('*')">*</button>
+
+      <button class="number" onclick="appendValue('7')">7</button>
+      <button class="number" onclick="appendValue('8')">8</button>
+      <button class="number" onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('-')">-</button>
+
+      <button class="number" onclick="appendValue('4')">4</button>
+      <button class="number" onclick="appendValue('5')">5</button>
+      <button class="number" onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button class="number" onclick="appendValue('1')">1</button>
+      <button class="number" onclick="appendValue('2')">2</button>
+      <button class="number" onclick="appendValue('3')">3</button>
+      <button class="number" onclick="appendValue('.')">.</button>
+
+      <button class="number zero" onclick="appendValue('0')">0</button>
+      <button class="number" onclick="appendValue('00')">00</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    // Add ripple effect to all buttons
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        // Create multiple cascading wave ripples
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.animationDelay = '0s';
+            this.appendChild(ripple);
+          }, i * 150);
+        }
+      });
+    });
+
+    function appendValue(value) {
+      const lastChar = display.value.slice(-1);
+
+      // Prevent double operators
+      if (['+', '-', '', '/'].includes(lastChar) && ['+', '-', '', '/'].includes(value)) return;
+
+      // Prevent multiple dots in one number
+      const parts = display.value.split(/[\+\-\*\/]/);
+      const lastPart = parts[parts.length - 1];
+      if (value === '.' && lastPart.includes('.')) return;
+
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>

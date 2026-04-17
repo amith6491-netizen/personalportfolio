@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Weather App</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family:'Courier New', monospace;
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(weather1.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+
+/* Main Card */
+.weather-app {
+  background: rgba(104, 103, 105, 0.999);
+  padding: 36px;
+  border-radius: 20px;
+  width: 600px;
+  height: 406px;
+  max-width: 100%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  background-image: url(weather3.png);
+  background-size: auto;
+
+  /* Animation */
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-app h2 {
+  margin-bottom: 15px;
+  color: rgb(255, 246, 246);
+  font-size: 40px;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 4px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* Input Glow */
+.search-box input:focus {
+  box-shadow: 0 0 10px #4facfe;
+  border-color: #4facfe;
+}
+
+.search-box button {
+  padding: 13px 42px;
+  border: none;
+  border-radius: 10px;
+  background: #4facfe;
+  color: white;
+  cursor: pointer;
+  transition:-158.7s;
+
+}
+
+/* Button Hover */
+.search-box button:hover {
+  background: #2f9dfc;
+  transform: scale(1.05);
+}
+
+.weather-info {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.5s ease;
+}
+
+.weather-info.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.weather-info img {
+  width: 20px;
+
+}
+
+.temp {
+  font-size: 42px;
+  font-weight: bolder;
+  margin: 10px 0;
+  color: rgb(255, 255, 255);
+}
+
+.city {
+  font-weight: bolder;
+  font-size: 44px;
+  color: rgb(255, 255, 255);
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: rgb(255, 255, 255);
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  display: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .details {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="weather-app">
+  <h2>WEATHER APP</h2>
+
+  <div class="search-box">
+    <input type="text" id="cityInput" placeholder="Enter city name" />
+    <button onclick="getWeather()">Search</button>
+  </div>
+
+  <div class="error" id="error">City not found!</div>
+
+  <div class="weather-info" id="weatherInfo">
+    <img id="weatherIcon" alt="Weather Icon" />
+    <div class="temp" id="temperature"></div>
+    <div class="city" id="cityName"></div>
+    <div class="details">
+      <div>Humidity: <span id="humidity"></span>%</div>
+      <div>Wind: <span id="wind"></span> km/h</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const apiKey = "b80a3c6f09bd0afa6425e3bd726be236"; // put your key
+
+async function getWeather() {
+  const city = document.getElementById("cityInput").value.trim();
+  const weatherInfo = document.getElementById("weatherInfo");
+  const error = document.getElementById("error");
+
+  if (city === "") return;
+
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+    );
+
+    if (!response.ok) {
+      throw new Error("City not found");
+    }
+
+    const data = await response.json();
+
+    document.getElementById("temperature").innerText =
+      `${Math.round(data.main.temp)}°C`;
+    document.getElementById("cityName").innerText = data.name;
+    document.getElementById("humidity").innerText = data.main.humidity;
+    document.getElementById("wind").innerText = data.wind.speed;
+    document.getElementById("weatherIcon").src =
+      `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+    weatherInfo.classList.add("show");
+    error.style.display = "none";
+
+  } catch (err) {
+    weatherInfo.classList.remove("show");
+    error.style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>
