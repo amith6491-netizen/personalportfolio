@@ -8,8 +8,7 @@
 <style>
 * {
   box-sizing: border-box;
-  font-family:'Courier New', monospace;
-  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -18,32 +17,34 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(weather1.png);
+  background-image: url(weather3.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 20px;
+  padding: 15px;
+  font-size: 16px;
 }
 
 /* Main Card */
 .weather-app {
-  background: rgba(104, 103, 105, 0.999);
-  padding: 36px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 60px;
   border-radius: 20px;
-  width: 600px;
-  height: 406px;
-  max-width: 100%;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   text-align: center;
+
   backdrop-filter: blur(8px);
   background-image: url(weather3.png);
-  background-size: auto;
+  background-size: cover;
 
-  /* Animation */
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Fade Animation */
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -55,12 +56,21 @@ body {
   }
 }
 
+/* Logo Style */
+
+.app-logo {
+  width: 180px;      
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+/* Title */
 .weather-app h2 {
   margin-bottom: 15px;
-  color: rgb(255, 246, 246);
-  font-size: 40px;
+  font-size: 28px;
 }
 
+/* Search */
 .search-box {
   display: flex;
   gap: 10px;
@@ -71,70 +81,70 @@ body {
   flex: 1;
   padding: 10px;
   border-radius: 8px;
-  border: 4px solid #ccc;
+  border: 2px solid #ccc;
   outline: none;
-  transition: 0.3s;
+  font-size: 16px;
 }
 
-/* Input Glow */
 .search-box input:focus {
   box-shadow: 0 0 10px #4facfe;
   border-color: #4facfe;
 }
 
 .search-box button {
-  padding: 13px 42px;
+  padding: 10px 18px;
   border: none;
   border-radius: 10px;
   background: #4facfe;
   color: white;
   cursor: pointer;
-  transition:-158.7s;
-
+  transition: 0.3s;
 }
 
-/* Button Hover */
 .search-box button:hover {
   background: #2f9dfc;
-  transform: scale(1.05);
 }
 
+/* Weather Info */
 .weather-info {
   display: none;
   opacity: 0;
   transform: translateY(20px);
   transition: 0.5s ease;
+  
 }
 
 .weather-info.show {
   display: block;
   opacity: 1;
   transform: translateY(0);
+  font-size: 15px;
 }
 
 .weather-info img {
-  width: 20px;
-
+  width: 60px;
 }
 
 .temp {
-  font-size: 42px;
-  font-weight: bolder;
+  font-size: 36px;
+  font-weight: bold;
   margin: 10px 0;
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
 .city {
-  font-weight: bolder;
-  font-size: 44px;
-  color: rgb(255, 255, 255);
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
 }
 
+/* Details */
 .details {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
-  color: rgb(255, 255, 255);
+  color: white;
+  font-size: 16px;
 }
 
 .error {
@@ -142,21 +152,74 @@ body {
   margin-top: 10px;
   display: none;
 }
+/* Forecast Container */
 
-/* Mobile Responsive */
+.forecast {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  overflow-x: auto;
+  justify-content: flex-start;
+ 
+}
+
+/* Each Day Box */
+.forecast-day {
+  background: rgba(255,255,255,0.25);
+  padding: 5px;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  flex: 0 0 60px;
+
+}
+ .forecast-day p {
+  margin: 2px 0;       
+  font-size: 15px;    
+}
+.forecast-day img {
+  width: 20px;
+}
+
+/* 📱 Mobile Fix */
+
 @media (max-width: 480px) {
+
+  .app-logo {
+    width: 65px;
+  }
+}
+  .search-box {
+    flex-direction: column;
+  }
+  .search-box button {
+    width: 100%;
+  }
   .details {
     flex-direction: column;
     gap: 8px;
   }
-}
+  .temp {
+    font-size: 30px;
+  }
+  .city {
+    font-size: 24px;
+  }
+  .forecast {
+    grid-template-columns: repeat(5, 70px);
+    overflow-x: auto;
+    margin-left: 0px;
+  }
+
 </style>
 </head>
 
 <body>
 
 <div class="weather-app">
-  <h2>WEATHER APP</h2>
+  <img src="logo.png" class="app-logo" alt="Weather Logo">
+ 
 
   <div class="search-box">
     <input type="text" id="cityInput" placeholder="Enter city name" />
@@ -170,48 +233,103 @@ body {
     <div class="temp" id="temperature"></div>
     <div class="city" id="cityName"></div>
     <div class="details">
+      
       <div>Humidity: <span id="humidity"></span>%</div>
       <div>Wind: <span id="wind"></span> km/h</div>
     </div>
   </div>
+  
+
+<!-- NEW -->
+<div class="forecast" id="forecast"></div>
 </div>
 
 <script>
 const apiKey = "b80a3c6f09bd0afa6425e3bd726be236"; // put your key
 
 async function getWeather() {
+
   const city = document.getElementById("cityInput").value.trim();
   const weatherInfo = document.getElementById("weatherInfo");
   const error = document.getElementById("error");
+  const forecastDiv = document.getElementById("forecast");
 
   if (city === "") return;
 
   try {
+
+    /* CURRENT WEATHER */
+
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
     );
 
-    if (!response.ok) {
-      throw new Error("City not found");
-    }
+    if (!response.ok) throw new Error("City not found");
 
     const data = await response.json();
 
     document.getElementById("temperature").innerText =
       `${Math.round(data.main.temp)}°C`;
+
     document.getElementById("cityName").innerText = data.name;
     document.getElementById("humidity").innerText = data.main.humidity;
     document.getElementById("wind").innerText = data.wind.speed;
+
     document.getElementById("weatherIcon").src =
       `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
     weatherInfo.classList.add("show");
     error.style.display = "none";
 
-  } catch (err) {
-    weatherInfo.classList.remove("show");
-    error.style.display = "block";
+
+    /* 5-DAY FORECAST */
+
+    const forecastResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
+    );
+
+    const forecastData = await forecastResponse.json();
+
+    forecastDiv.innerHTML = "";
+
+    const dailyData = forecastData.list.filter(
+      item => item.dt_txt.includes("12:00:00")
+    );
+
+    dailyData.slice(0, 5).forEach(day => {
+
+      const date = new Date(day.dt_txt);
+      const dayName = date.toLocaleDateString("en-US", {
+        weekday: "short"
+      });
+
+      const temp = Math.round(day.main.temp);
+
+      const icon =
+        `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
+
+      const dayBox = `
+<div class="forecast-day">
+  <p>${dayName}</p>
+  <img src="${icon}">
+  <p>${temp}°C</p>
+</div>
+`;
+
+forecastDiv.innerHTML += dayBox;
+
+    });
+
   }
+
+  catch (err) {
+
+    weatherInfo.classList.remove("show");
+    forecastDiv.innerHTML = "";
+    error.style.display = "block";
+
+  }
+
 }
 </script>
 
