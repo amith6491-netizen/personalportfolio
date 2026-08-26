@@ -6,7 +6,7 @@ The portfolio features a dark developer-focused design, animated sections, custo
 
 ## 🌐 Live Demo
 
-🔗 **[View Live Portfolio](https://amith6491.github.io/)**
+🔗 **[View Live Portfolio](https://amith6491-netizen.github.io/personalportfolio/)**
 
 ---
 
