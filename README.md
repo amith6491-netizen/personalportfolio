@@ -201,7 +201,7 @@ Users can register, create and publish blog posts, and interact with content. Th
 [INKWELL Blog Repository](https://github.com/amith6491-netizen/INKWELL-Blog)
 
 **Live Demo:**
-[Open INKWELL Blog](https://frontend-ivory-kappa-94.vercel.app/)
+[Open INKWELL Blog](https://inkwellhub.vercel.app/)
 
 ---
 
