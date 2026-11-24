@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amith | Web Developer</title>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400&display=swap"
@@ -1874,20 +1874,36 @@
     if (aboutSection) aboutObserver.observe(aboutSection);
 
     // ── CONTACT FORM ──
-    emailjs.init("mB_q117ltCH5_HAQe");
+    const EMAILJS_PUBLIC_KEY = "mB_q117ltCH5_HAQe";
+    const EMAILJS_SERVICE_ID = "service_lv4rlqj";
+    const EMAILJS_TEMPLATE_ID = "template_bwtg46n";
+
+    emailjs.init({
+      publicKey: EMAILJS_PUBLIC_KEY
+    });
 
     function sendEmail() {
+      const nameInput = document.querySelector('input[name="name"]');
+      const emailInput = document.querySelector('input[name="email"]');
+      const messageInput = document.querySelector('textarea[name="message"]');
       const btn = document.getElementById('sendBtn');
+
+      if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+        alert('Please fill in all fields before sending.');
+        return;
+      }
+
       btn.textContent = 'Sending...';
       btn.style.opacity = '0.7';
 
       const params = {
-        from_name: document.querySelector('input[name="name"]').value,
-        from_email: document.querySelector('input[name="email"]').value,
-        message: document.querySelector('textarea[name="message"]').value,
+        from_name: nameInput.value.trim(),
+        from_email: emailInput.value.trim(),
+        message: messageInput.value.trim(),
       };
 
-      emailjs.send("service_yld7b9o", "template_bwtg46n", params)
+      // Pass public key directly as 4th argument so it does not rely on browser localStorage
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
         .then(() => {
           btn.textContent = '✓ Message Sent!';
           btn.style.background = '#47ff8a';
@@ -1898,10 +1914,15 @@
             btn.style.background = '';
           }, 3000);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('EmailJS Error:', error);
           btn.textContent = 'Failed! Try Again';
           btn.style.background = '#ff4747';
           btn.style.opacity = '1';
+          setTimeout(() => {
+            btn.textContent = 'Send Message';
+            btn.style.background = '';
+          }, 3500);
         });
     }
 
